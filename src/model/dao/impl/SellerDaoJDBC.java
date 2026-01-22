@@ -1,6 +1,7 @@
 package model.dao.impl;
 
 import db.DB;
+import db.DbException;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
@@ -21,7 +22,42 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void insert(Seller seller) {
+        PreparedStatement st = null;
 
+        try {
+            st =  conn.prepareStatement(
+                    "INSERT INTO seller "
+                            + "(Name, Email, BirthDate, BaseSalary, DepartmentId) "
+                    + "VALUES "
+                             +"(?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS); // Retorna o ID do Seller que foi adicionado
+
+            st.setString(1, seller.getNome());
+            st.setString(2, seller.getEmail());
+            st.setDate(3, new Date(seller.getDataAniversario().getTime()));
+            st.setDouble(4, seller.getSalario());
+            st.setInt(5, seller.getDepartamento().getId());
+
+            int rowsAffected = st.executeUpdate();
+
+            if (rowsAffected > 0){
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()){
+                    int id = rs.getInt(1);
+                    seller.setId(id);
+                }
+                DB.closeResultSet(rs);
+            }
+            else {
+                throw new DbException("Erro inesperado, NENHUMA linha foi alterada.");
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override

@@ -29,5 +29,10 @@ public class Program {
         for (Seller s : sellerList2){
             System.out.println(s);
         }
+
+        System.out.println("\n=== Teste 4: Insert ===");
+        Seller newSeller = new Seller(null, "Isa", "isa@gmail.com", new Date(), 2400.00, department);
+        sellerDao.insert(newSeller);
+        System.out.println("Inserido! Novo Id = " + newSeller.getId());
     }
 }
