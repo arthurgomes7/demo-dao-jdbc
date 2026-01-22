@@ -5,10 +5,7 @@ import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class SellerDaoJDBC implements SellerDao {
@@ -50,18 +47,8 @@ public class SellerDaoJDBC implements SellerDao {
             rs = st.executeQuery();
 
             if (rs.next()){
-                Department dp = new Department();
-                dp.setId(rs.getInt("DepartmentId"));
-                dp.setName(rs.getString("DepName"));
-
-                Seller seller = new Seller();
-                seller.setId(rs.getInt("Id"));
-                seller.setNome(rs.getString("Name"));
-                seller.setEmail(rs.getString("Email"));
-                seller.setSalario(rs.getDouble("BaseSalary"));
-                seller.setDataAniversario(rs.getDate("BirthDate"));
-                seller.setDepartamento(dp);
-                return seller;
+                Department dp = instanciarDepartamento(rs);
+                return instanciarSeller(rs, dp);
             }
         }
         catch (SQLException e){
@@ -72,6 +59,26 @@ public class SellerDaoJDBC implements SellerDao {
             DB.closeResultSet(rs);
         }
         return null;
+    }
+
+    private Seller instanciarSeller(ResultSet rs, Department dp) throws SQLException {
+        Seller seller = new Seller();
+        seller.setId(rs.getInt("Id"));
+        seller.setNome(rs.getString("Name"));
+        seller.setEmail(rs.getString("Email"));
+        seller.setSalario(rs.getDouble("BaseSalary"));
+        seller.setDataAniversario(rs.getDate("BirthDate"));
+        seller.setDepartamento(dp);
+
+        return seller;
+    }
+
+    private Department instanciarDepartamento(ResultSet rs) throws SQLException {
+        Department dp = new Department();
+        dp.setId(rs.getInt("DepartmentId"));
+        dp.setName(rs.getString("DepName"));
+
+        return dp;
     }
 
     @Override
