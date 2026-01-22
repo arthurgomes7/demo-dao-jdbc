@@ -1,9 +1,9 @@
-package model.entities.application;
+package br.com.jdbc.application;
 
-import model.dao.DaoFactory;
-import model.dao.SellerDao;
-import model.entities.Department;
-import model.entities.Seller;
+import br.com.jdbc.model.dao.DaoFactory;
+import br.com.jdbc.model.dao.SellerDao;
+import br.com.jdbc.model.entities.Department;
+import br.com.jdbc.model.entities.Seller;
 
 import java.util.Date;
 import java.util.List;

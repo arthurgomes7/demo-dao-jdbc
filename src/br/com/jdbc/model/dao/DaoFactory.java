@@ -1,7 +1,7 @@
-package model.dao;
+package br.com.jdbc.model.dao;
 
-import db.DB;
-import model.dao.impl.SellerDaoJDBC;
+import br.com.jdbc.db.DB;
+import br.com.jdbc.model.dao.impl.SellerDaoJDBC;
 
 public class DaoFactory {
     public static SellerDao createSellerDao(){

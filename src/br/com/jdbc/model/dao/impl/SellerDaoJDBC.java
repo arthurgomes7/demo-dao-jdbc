@@ -1,10 +1,10 @@
-package model.dao.impl;
+package br.com.jdbc.model.dao.impl;
 
-import db.DB;
-import db.DbException;
-import model.dao.SellerDao;
-import model.entities.Department;
-import model.entities.Seller;
+import br.com.jdbc.db.DB;
+import br.com.jdbc.db.DbException;
+import br.com.jdbc.model.dao.SellerDao;
+import br.com.jdbc.model.entities.Department;
+import br.com.jdbc.model.entities.Seller;
 
 import java.sql.*;
 import java.util.ArrayList;

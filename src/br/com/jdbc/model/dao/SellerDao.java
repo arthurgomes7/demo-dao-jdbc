@@ -1,7 +1,7 @@
-package model.dao;
+package br.com.jdbc.model.dao;
 
-import model.entities.Department;
-import model.entities.Seller;
+import br.com.jdbc.model.entities.Department;
+import br.com.jdbc.model.entities.Seller;
 
 import java.util.List;
 
